@@ -1,4 +1,4 @@
-# PatchTST
+# PatchTST - Minimal Implementation
 
 ## To Run
 
@@ -16,7 +16,7 @@ To fine-tune the minimal implementation of PatchTST (for LoRA use `--lora=True`)
 python main.py --mode=finetune --ckpt=path/to/ckpt
 ```
 
-To test the fine-tuned models
+### Testing
 
 ```
 python main.py --mode=test --ckpt=path/to/ckpt
