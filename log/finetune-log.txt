@@ -1,0 +1,20 @@
+[[34m2024-05-08 15:55:22[0m] Starting training
+[[34m2024-05-08 15:55:50[0m] epoch: 0 | Train Loss: 0.2713 | Val Loss: 7.8594
+[[34m2024-05-08 15:55:50[0m] Saved checkpoint to saved_models/finetune-00032.pth
+[[34m2024-05-08 15:56:19[0m] epoch: 1 | Train Loss: 0.2709 | Val Loss: 7.9152
+[[34m2024-05-08 15:56:47[0m] epoch: 2 | Train Loss: 0.2670 | Val Loss: 8.0452
+[[34m2024-05-08 15:57:15[0m] epoch: 3 | Train Loss: 0.2628 | Val Loss: 8.2388
+[[34m2024-05-08 15:57:44[0m] epoch: 4 | Train Loss: 0.2584 | Val Loss: 8.4396
+[[34m2024-05-08 15:57:44[0m] Training completed. Time taken: 2.358 mins
+[[34m2024-05-08 15:57:44[0m] % Trainable Parameters:  100.000%
+[[34m2024-05-08 15:57:55[0m] Starting training
+[[34m2024-05-08 15:59:39[0m] Starting training
+[[34m2024-05-08 16:00:10[0m] epoch: 0 | Train Loss: 0.2717 | Val Loss: 7.8573
+[[34m2024-05-08 16:00:10[0m] Saved checkpoint to saved_models/finetune-lora-00032.pth
+[[34m2024-05-08 16:00:41[0m] epoch: 1 | Train Loss: 0.2717 | Val Loss: 7.8570
+[[34m2024-05-08 16:00:41[0m] Saved checkpoint to saved_models/finetune-lora-00063.pth
+[[34m2024-05-08 16:01:13[0m] epoch: 2 | Train Loss: 0.2722 | Val Loss: 7.8578
+[[34m2024-05-08 16:01:44[0m] epoch: 3 | Train Loss: 0.2722 | Val Loss: 7.8578
+[[34m2024-05-08 16:02:16[0m] epoch: 4 | Train Loss: 0.2723 | Val Loss: 7.8584
+[[34m2024-05-08 16:02:16[0m] Training completed. Time taken: 2.614 mins
+[[34m2024-05-08 16:02:16[0m] % Trainable Parameters:  4.353%
