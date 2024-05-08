@@ -77,13 +77,13 @@ class Learner:
             model.train()
 
             epoch_loss = 0
-            for train_x, train_y in trainloader:
+            for inputs, targets in trainloader:
                 optimizer.zero_grad()
-                train_x, train_y = train_x.to(self.device), train_y.to(self.device)
+                inputs, targets = inputs.to(self.device), targets.to(self.device)
 
-                pred_y = model(train_x)
+                pred_y = model(inputs)
                 pred_y = pred_y[:, -args.target_window:, -1:].squeeze(-1)
-                loss = criterion(pred_y, train_y)
+                loss = criterion(pred_y, targets)
 
                 loss.backward()
                 optimizer.step()
