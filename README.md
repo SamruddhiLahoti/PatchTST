@@ -21,9 +21,3 @@ To test the fine-tuned models
 ```
 python main.py --mode=test --ckpt=path/to/ckpt
 ```
-
-
-## TODO
-
-1. Add logger
-2. Clean-up model
