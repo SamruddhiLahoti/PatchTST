@@ -42,7 +42,7 @@ class Learner:
         total_loss = 0
         with torch.no_grad():
             for inputs, targets in dataloader:
-                inputs, inputs = inputs.to(self.device), inputs.to(self.device)
+                inputs, targets = inputs.to(self.device), targets.to(self.device)
                 preds = model(inputs)
                 preds = preds[:, -args.target_window:, -1:].squeeze(-1)
                 loss = criterion(preds, targets)
