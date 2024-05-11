@@ -1,15 +1,5 @@
-[[34m2024-05-11 08:40:38[0m] Data loaded from data/train.csv. Num samples: 31186.
-[[34m2024-05-11 08:40:38[0m] Data loaded from data/val.csv. Num samples: 5175.
-[[34m2024-05-11 08:40:38[0m] Starting training
-[[34m2024-05-11 08:43:46[0m] epoch: 0 | Train Loss: 1.4416 | Val Loss: 0.7183
-[[34m2024-05-11 08:43:47[0m] Saved checkpoint to saved_models/train-00245.pth
-[[34m2024-05-11 08:46:53[0m] epoch: 1 | Train Loss: 1.3459 | Val Loss: 0.6618
-[[34m2024-05-11 08:46:53[0m] Saved checkpoint to saved_models/train-00489.pth
-[[34m2024-05-11 08:49:59[0m] epoch: 2 | Train Loss: 1.2045 | Val Loss: 0.6509
-[[34m2024-05-11 08:49:59[0m] Saved checkpoint to saved_models/train-00733.pth
-[[34m2024-05-11 08:53:04[0m] epoch: 3 | Train Loss: 1.1354 | Val Loss: 0.6440
-[[34m2024-05-11 08:53:04[0m] Saved checkpoint to saved_models/train-00977.pth
-[[34m2024-05-11 08:56:10[0m] epoch: 4 | Train Loss: 1.1041 | Val Loss: 0.6404
-[[34m2024-05-11 08:56:10[0m] Saved checkpoint to saved_models/train-01221.pth
-[[34m2024-05-11 08:56:10[0m] Training completed. Time taken: 15.541 mins
-[[34m2024-05-11 08:56:10[0m] % Trainable Parameters:  100.000%
+[[34m2024-05-11 12:59:42[0m] Data loaded from data/train.csv. Num samples: 31186.
+[[34m2024-05-11 12:59:42[0m] Data loaded from data/val.csv. Num samples: 5175.
+[[34m2024-05-11 12:59:42[0m] Starting training
+[[34m2024-05-11 13:02:49[0m] epoch: 0 | Train Loss: 1.4431 | Val Loss: 0.6964
+[[34m2024-05-11 13:02:49[0m] Saved checkpoint to saved_models_weather/train-00245.pth

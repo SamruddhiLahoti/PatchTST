@@ -3,6 +3,7 @@ import argparse
 import logging
 import torch
 import numpy as np
+import pandas as pd
 import loralib as lora
 from time import time
 
@@ -15,11 +16,17 @@ class Learner:
         
         self.device = device
     
-    def load_data(self, trainmode, data_path):
+    def save_hist(self, train_hist, val_hist):
+        hist_path = f"{args.ckpt_save}/loss_history.csv"
+
+        df = pd.DataFrame({"train_loss": train_hist, "val_loss": val_hist})
+        df.to_csv(hist_path)
+    
+    def load_data(self, trainmode, data_path, shuffle):
 
         data = CustomDataset(data_path=data_path, trainmode=trainmode)
         logger.info(f"Data loaded from {data_path}. Num samples: {len(data)}.")
-        return torch.utils.data.DataLoader(data, batch_size=args.batch_size, shuffle=trainmode)
+        return torch.utils.data.DataLoader(data, batch_size=args.batch_size, shuffle=shuffle)
 
     def adjust_learning_rate(self, steps, optimizer, warmup_step=300):
         if steps**(-0.5) < steps * (warmup_step**-1.5):
@@ -58,15 +65,15 @@ class Learner:
         if args.lora:
             lora.mark_only_lora_as_trainable(model)
 
-        trainloader = self.load_data(True, args.train_path)
-        valloader = self.load_data(True, args.val_path)
+        trainloader = self.load_data(True, args.train_path, True)
+        valloader = self.load_data(True, args.val_path, False)
 
         optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
         criterion = torch.nn.MSELoss()
 
         best_val_loss = np.inf
         train_history = []
-        valid_history = []
+        val_history = []
         train_steps = 1
 
         if args.adjust_lr:
@@ -112,7 +119,9 @@ class Learner:
                 logger.info(f"Saved checkpoint to {checkpoint_path}")
 
             train_history.append(epoch_loss)
-            valid_history.append(val_loss)
+            val_history.append(val_loss)
+
+        self.save_hist(train_history, val_history)
         
         logger.info(f"Training completed. Time taken: {(time()-start) / 60:.3f} mins")
         return model
