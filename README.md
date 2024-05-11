@@ -13,11 +13,11 @@ python main.py
 To fine-tune the minimal implementation of PatchTST (for LoRA use `--lora=True`)
 
 ```
-python main.py --mode=finetune --ckpt=path/to/ckpt
+python main.py --mode=finetune --ckpt-load=path/to/ckpt
 ```
 
 ### Testing
 
 ```
-python main.py --mode=test --ckpt=path/to/ckpt
+python main.py --mode=test --ckpt-load=path/to/ckpt
 ```

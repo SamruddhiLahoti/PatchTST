@@ -6,7 +6,7 @@ import numpy as np
 import loralib as lora
 from time import time
 
-from data import ETTDataset
+from dataset import CustomDataset
 from model import PatchTST
 
 
@@ -17,7 +17,8 @@ class Learner:
     
     def load_data(self, trainmode, data_path):
 
-        data = ETTDataset(data_path=data_path, trainmode=trainmode)
+        data = CustomDataset(data_path=data_path, trainmode=trainmode)
+        logger.info(f"Data loaded from {data_path}. Num samples: {len(data)}.")
         return torch.utils.data.DataLoader(data, batch_size=args.batch_size, shuffle=trainmode)
 
     def adjust_learning_rate(self, steps, optimizer, warmup_step=300):
@@ -58,7 +59,7 @@ class Learner:
             lora.mark_only_lora_as_trainable(model)
 
         trainloader = self.load_data(True, args.train_path)
-        valloader = self.load_data(False, args.val_path)
+        valloader = self.load_data(True, args.val_path)
 
         optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
         criterion = torch.nn.MSELoss()
@@ -106,7 +107,7 @@ class Learner:
                     "opt": optimizer.state_dict(),
                     "args": args
                 }
-                checkpoint_path = f"{args.ckpt_dir}/{args.mode}-{(train_steps):05d}.pth"
+                checkpoint_path = f"{args.ckpt_save}/{args.mode}-{(train_steps):05d}.pth"
                 torch.save(checkpoint, checkpoint_path)
                 logger.info(f"Saved checkpoint to {checkpoint_path}")
 
@@ -147,9 +148,9 @@ if __name__ == "__main__":
 
     parser.add_argument("--mode", type=str, default="train", help="Options: train, finetune, test")
     parser.add_argument("--log-dir", type=str, default="log", help="directory for the log file")
-    parser.add_argument("--ckpt-dir", type=str, default="saved_models", help="directory to save model ckpt")
-    parser.add_argument("--ckpt", type=str, default=None)
-    parser.add_argument("--data-path", type=str, default="dataset", help="Path to data files")
+    parser.add_argument("--ckpt-save", type=str, default="saved_models", help="directory to save model ckpt")
+    parser.add_argument("--ckpt-load", type=str, default=None)
+    parser.add_argument("--data-path", type=str, default="data", help="Path to data files")
     parser.add_argument("--epochs", type=int, default=5, help="Num epochs")
     parser.add_argument("--lr", type=float, default=1e-3, help="Learning rate")
     parser.add_argument("--batch-size", type=int, default=128, help="Batch Size")
@@ -167,13 +168,14 @@ if __name__ == "__main__":
 
     assert os.path.exists(args.data_path), f"{args.train_path} does not exist"
 
-    os.makedirs(args.ckpt_dir, exist_ok=True)
+    os.makedirs(args.ckpt_save, exist_ok=True)
     os.makedirs(args.log_dir, exist_ok=True)
 
     logger = create_logger(args.log_dir)
 
     # Choose GPU
-    device = "cuda" if torch.cuda.is_available() else "cpu"
+    # device = "cuda" if torch.cuda.is_available() else "cpu"
+    device = torch.device("mps") if torch.backends.mps.is_available() else torch.device("cpu")
 
     learner = Learner(device)
 
@@ -189,17 +191,17 @@ if __name__ == "__main__":
         trainable_params, total_params = get_trainable_parameters(model)
         logger.info(f"% Trainable Parameters: {(trainable_params / total_params) * 100: .3f}%")
 
-    if args.mode == "finetune":
+    elif args.mode == "finetune":
         args.train_path = f"{args.data_path}/finetune.csv"
         args.val_path = f"{args.data_path}/val.csv"
 
         if args.lora:
             args.mode = f"{args.mode}-lora"
 
-        assert args.ckpt is not None, "No pre-trained ckpt provided for fine-tuning"
-        assert os.path.exists(args.ckpt), f"{args.ckpt} does not exist"
+        assert args.ckpt_load is not None, "No pre-trained ckpt_load provided for fine-tuning"
+        assert os.path.exists(args.ckpt_load), f"{args.ckpt_load} does not exist"
 
-        ckpt = torch.load(args.ckpt, map_location=lambda storage, loc: storage)
+        ckpt = torch.load(args.ckpt_load, map_location=lambda storage, loc: storage)
         model.load_state_dict(ckpt["model"], strict=False)
         
         model = learner.train(model)
@@ -211,10 +213,10 @@ if __name__ == "__main__":
 
         args.test_path = f"{args.data_path}/test.csv"
 
-        assert args.ckpt is not None, "No ckpt provided for testing"
-        assert os.path.exists(args.ckpt), f"{args.ckpt} does not exist"
+        assert args.ckpt_load is not None, "No ckpt provided for testing"
+        assert os.path.exists(args.ckpt_load), f"{args.ckpt_load} does not exist"
 
-        ckpt = torch.load(args.ckpt, map_location=lambda storage, loc: storage)
+        ckpt = torch.load(args.ckpt_load, map_location=lambda storage, loc: storage)
         model.load_state_dict(ckpt["model"], strict=False)
 
         loss = learner.test(model)

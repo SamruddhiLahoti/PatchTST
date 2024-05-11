@@ -1,13 +1,15 @@
-[[34m2024-05-08 15:48:47[0m] Starting training
-[[34m2024-05-08 15:49:53[0m] epoch: 0 | Train Loss: 0.2487 | Val Loss: 9.6180
-[[34m2024-05-08 15:49:53[0m] Saved checkpoint to saved_models/train-00076.pth
-[[34m2024-05-08 15:51:00[0m] epoch: 1 | Train Loss: 0.2370 | Val Loss: 8.9546
-[[34m2024-05-08 15:51:00[0m] Saved checkpoint to saved_models/train-00151.pth
-[[34m2024-05-08 15:52:07[0m] epoch: 2 | Train Loss: 0.2163 | Val Loss: 8.3824
-[[34m2024-05-08 15:52:07[0m] Saved checkpoint to saved_models/train-00226.pth
-[[34m2024-05-08 15:53:15[0m] epoch: 3 | Train Loss: 0.2009 | Val Loss: 8.0277
-[[34m2024-05-08 15:53:15[0m] Saved checkpoint to saved_models/train-00301.pth
-[[34m2024-05-08 15:54:21[0m] epoch: 4 | Train Loss: 0.1911 | Val Loss: 7.8496
-[[34m2024-05-08 15:54:21[0m] Saved checkpoint to saved_models/train-00376.pth
-[[34m2024-05-08 15:54:21[0m] Training completed. Time taken: 5.577 mins
-[[34m2024-05-08 15:54:21[0m] % Trainable Parameters:  100.000%
+[[34m2024-05-11 08:40:38[0m] Data loaded from data/train.csv. Num samples: 31186.
+[[34m2024-05-11 08:40:38[0m] Data loaded from data/val.csv. Num samples: 5175.
+[[34m2024-05-11 08:40:38[0m] Starting training
+[[34m2024-05-11 08:43:46[0m] epoch: 0 | Train Loss: 1.4416 | Val Loss: 0.7183
+[[34m2024-05-11 08:43:47[0m] Saved checkpoint to saved_models/train-00245.pth
+[[34m2024-05-11 08:46:53[0m] epoch: 1 | Train Loss: 1.3459 | Val Loss: 0.6618
+[[34m2024-05-11 08:46:53[0m] Saved checkpoint to saved_models/train-00489.pth
+[[34m2024-05-11 08:49:59[0m] epoch: 2 | Train Loss: 1.2045 | Val Loss: 0.6509
+[[34m2024-05-11 08:49:59[0m] Saved checkpoint to saved_models/train-00733.pth
+[[34m2024-05-11 08:53:04[0m] epoch: 3 | Train Loss: 1.1354 | Val Loss: 0.6440
+[[34m2024-05-11 08:53:04[0m] Saved checkpoint to saved_models/train-00977.pth
+[[34m2024-05-11 08:56:10[0m] epoch: 4 | Train Loss: 1.1041 | Val Loss: 0.6404
+[[34m2024-05-11 08:56:10[0m] Saved checkpoint to saved_models/train-01221.pth
+[[34m2024-05-11 08:56:10[0m] Training completed. Time taken: 15.541 mins
+[[34m2024-05-11 08:56:10[0m] % Trainable Parameters:  100.000%
